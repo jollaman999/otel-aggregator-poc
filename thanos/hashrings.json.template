@@ -1,0 +1,9 @@
+[
+  {
+    "hashring": "default",
+    "endpoints": [
+      "${NODE_IP}:10907",
+      "${PEER_IP}:10907"
+    ]
+  }
+]

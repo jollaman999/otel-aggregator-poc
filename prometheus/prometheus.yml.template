@@ -3,7 +3,21 @@ global:
   evaluation_interval: 15s
   external_labels:
     cluster: 'monitoring-ha'
-    replica: 'node2'
+    replica: '${NODE_NAME}'
+
+remote_write:
+  - url: http://${NODE_IP}:19291/api/v1/receive
+    queue_config:
+      capacity: 10000
+      max_shards: 50
+      min_shards: 1
+      max_samples_per_send: 5000
+  - url: http://${PEER_IP}:19291/api/v1/receive
+    queue_config:
+      capacity: 10000
+      max_shards: 50
+      min_shards: 1
+      max_samples_per_send: 5000
 
 scrape_configs:
   - job_name: 'prometheus'

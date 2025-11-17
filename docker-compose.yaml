@@ -31,6 +31,9 @@ services:
     network_mode: host
     depends_on:
       - keepalived
+    environment:
+      - NODE_IP=${NODE_IP}
+      - PEER_IP=${PEER_IP}
     healthcheck:
       start_period: 120s
       test: ["CMD", "haproxy", "-c", "-f", "/usr/local/etc/haproxy/haproxy.cfg"]
@@ -85,7 +88,11 @@ services:
       retries: 30
 
   prometheus:
-    image: prom/prometheus:v3.7.3
+    image: cmp-prometheus
+    build:
+      context: ./prometheus
+      dockerfile: Dockerfile
+      network: host
     container_name: prometheus-${NODE_NAME}
     restart: always
     network_mode: host
@@ -151,6 +158,40 @@ services:
       interval: 10s
       timeout: 10s
       retries: 30
+
+  thanos-receiver:
+    build:
+      context: ./thanos
+      dockerfile: Dockerfile
+      network: host
+    image: cmp-thanos-receiver
+    container_name: thanos-receiver-${NODE_NAME}
+    restart: always
+    network_mode: host
+    volumes:
+      - ./thanos/bucket.yml:/etc/thanos/bucket.yml:ro
+      - ./thanos/hashrings.json.template:/etc/thanos/hashrings.json.template:ro
+      - /data/volume/otel/thanos-receiver:/data
+    command:
+      - 'receive'
+      - '--grpc-address=0.0.0.0:10907'
+      - '--http-address=0.0.0.0:10909'
+      - '--remote-write.address=0.0.0.0:19291'
+      - '--tsdb.path=/data'
+      - '--objstore.config-file=/etc/thanos/bucket.yml'
+      - '--label=receive_replica="${NODE_NAME}"'
+      - '--label=replica="${NODE_NAME}"'
+      - '--tsdb.retention=2h'
+      - '--receive.replication-factor=1'
+      - '--receive.hashrings-file=/etc/thanos/hashrings.json'
+    environment:
+      - NODE_IP=${NODE_IP}
+      - PEER_IP=${PEER_IP}
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:10909/-/healthy"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
 
   loki:
     image: grafana/loki:3.4.2
