@@ -1,0 +1,60 @@
+global
+    log stdout format raw local0
+    maxconn 4096
+    daemon
+
+defaults
+    log     global
+    mode    http
+    option  httplog
+    option  dontlognull
+    timeout connect 5000ms
+    timeout client  50000ms
+    timeout server  50000ms
+
+frontend otlp_http_frontend
+    bind *:4318
+    mode http
+    option forwardfor
+    default_backend otlp_http_backend
+
+backend otlp_http_backend
+    mode http
+    balance roundrobin
+    option httpchk GET /
+    server aggregator-1 ${NODE_IP}:14318 check inter 2000 rise 2 fall 3
+    server aggregator-2 ${PEER_IP}:14318 check inter 2000 rise 2 fall 3
+
+frontend prometheus_frontend
+    bind *:9090
+    mode http
+    default_backend prometheus_backend
+
+backend prometheus_backend
+    mode http
+    balance roundrobin
+    option httpchk GET /-/healthy
+    http-check expect status 200
+    server prometheus-1 ${NODE_IP}:19090 check inter 2000 rise 2 fall 3
+    server prometheus-2 ${PEER_IP}:19090 check inter 2000 rise 2 fall 3
+
+frontend loki_frontend
+    bind *:3100
+    mode http
+    default_backend loki_backend
+
+backend loki_backend
+    mode http
+    balance roundrobin
+    option httpchk GET /ready
+    http-check expect status 200
+    server loki-1 ${NODE_IP}:13100 check inter 2000 rise 2 fall 3
+    server loki-2 ${PEER_IP}:13100 check inter 2000 rise 2 fall 3
+
+listen stats
+    bind *:8404
+    stats enable
+    stats uri /stats
+    stats refresh 30s
+    stats show-legends
+    stats show-node

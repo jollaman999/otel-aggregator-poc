@@ -21,12 +21,13 @@ services:
     entrypoint: ["/bin/bash", "/usr/local/bin/setup-keepalived.sh"]
 
   haproxy:
-    image: haproxy:3.2.8-alpine
+    image: cmp-haproxy
+    build:
+      context: ./haproxy
+      dockerfile: Dockerfile
     container_name: haproxy-${NODE_NAME}
     restart: always
     network_mode: host
-    volumes:
-      - ./haproxy/haproxy.cfg:/usr/local/etc/haproxy/haproxy.cfg:ro
     depends_on:
       - keepalived
     healthcheck:
