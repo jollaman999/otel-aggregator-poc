@@ -288,8 +288,8 @@
   <path d="M 290,860 L 170,900" class="line-purple" marker-end="url(#arrowhead-purple)"/>
 
   <!-- Node 1: Thanos Sidecar to MinIO (right side curve) -->
-  <path d="M 400,700 L 420,700 L 420,1020 L 800,1020 L 800,1040" class="line-purple" marker-end="url(#arrowhead-purple)"/>
-  <text x="430" y="860" class="label" fill="#7b1fa2">Upload Blocks</text>
+  <path d="M 400,700 L 450,700 L 450,1020 L 800,1020 L 800,1040" class="line-purple" marker-end="url(#arrowhead-purple)"/>
+  <text x="460" y="900" class="label" fill="#7b1fa2">Upload Blocks</text>
 
   <!-- Node 1: Thanos Store to MinIO bucket -->
   <path d="M 130,960 L 130,1180 L 830,1180 L 830,1240" class="line-purple" marker-end="url(#arrowhead-purple)"/>
@@ -359,8 +359,8 @@
   <path d="M 1710,860 L 1830,900" class="line-purple" marker-end="url(#arrowhead-purple)"/>
 
   <!-- Node 2: Thanos Sidecar to MinIO (left side curve) -->
-  <path d="M 1600,700 L 1580,700 L 1580,1020 L 1200,1020 L 1200,1040" class="line-purple" marker-end="url(#arrowhead-purple)"/>
-  <text x="1490" y="860" class="label" fill="#7b1fa2">Upload Blocks</text>
+  <path d="M 1600,700 L 1550,700 L 1550,1020 L 1200,1020 L 1200,1040" class="line-purple" marker-end="url(#arrowhead-purple)"/>
+  <text x="1490" y="900" class="label" fill="#7b1fa2">Upload Blocks</text>
 
   <!-- Node 2: Thanos Store to MinIO bucket -->
   <path d="M 1870,960 L 1870,1180 L 1170,1180 L 1170,1240" class="line-purple" marker-end="url(#arrowhead-purple)"/>
