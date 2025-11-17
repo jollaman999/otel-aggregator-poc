@@ -210,18 +210,13 @@
   <text x="1000" y="1270" class="text" style="font-weight: bold; font-size: 16px;">MinIO Distributed Cluster (Erasure Coding)</text>
   <text x="1000" y="1295" class="text-small">4 Drives across 2 Nodes - Distributed Mode</text>
 
-  <!-- MinIO Architecture -->
-  <rect x="730" y="1320" width="240" height="80" class="storage-box" rx="5"/>
-  <text x="850" y="1345" class="text" style="font-weight: bold;">Storage Pool</text>
-  <text x="850" y="1365" class="text-small">Node1:/data1 + /data2</text>
-  <text x="850" y="1385" class="text-small">Node2:/data1 + /data2</text>
+  <!-- MinIO Storage Pool (Center) -->
+  <rect x="800" y="1320" width="400" height="80" class="storage-box" rx="5"/>
+  <text x="1000" y="1345" class="text" style="font-weight: bold;">Storage Pool (Erasure Coding: EC:2)</text>
+  <text x="1000" y="1365" class="text-small">Node1:/data1 + /data2 | Node2:/data1 + /data2</text>
+  <text x="1000" y="1385" class="text-small">4 Drives - Fault Tolerance: 2 drives</text>
 
-  <rect x="1020" y="1320" width="240" height="80" class="storage-box" rx="5"/>
-  <text x="1140" y="1345" class="text" style="font-weight: bold;">Replication</text>
-  <text x="1140" y="1365" class="text-small">Erasure Coding: EC:2</text>
-  <text x="1140" y="1385" class="text-small">Fault Tolerance: 2 drives</text>
-
-  <!-- MinIO Buckets -->
+  <!-- MinIO Buckets (Both point to Storage Pool) -->
   <rect x="750" y="1430" width="220" height="70" class="storage-box" rx="5" style="fill: #c8e6c9;"/>
   <text x="860" y="1455" class="text" style="font-weight: bold;">thanos-metrics</text>
   <text x="860" y="1475" class="text-small">Prometheus Blocks</text>
@@ -261,9 +256,9 @@
   <path d="M 480,460 L 660,460 L 660,740 L 790,740 L 790,780" class="line-purple" marker-end="url(#arrowhead-purple)"/>
   <text x="700" y="455" class="label" fill="#7b1fa2">Query Frontend :19193</text>
 
-  <!-- HAProxy to Thanos Query (left side curve - 완전히 분리) -->
-  <path d="M 380,500 L 200,500 L 200,750 L 240,750 L 240,780" class="line-purple" style="stroke-dasharray: 3,3" marker-end="url(#arrowhead-purple)"/>
-  <text x="100" y="640" class="label" fill="#7b1fa2">Query :9192</text>
+  <!-- HAProxy to Thanos Query (direct down to left) -->
+  <path d="M 380,480 L 310,480 L 310,780" class="line-purple" style="stroke-dasharray: 3,3" marker-end="url(#arrowhead-purple)"/>
+  <text x="320" y="630" class="label" fill="#7b1fa2">Query :9192</text>
 
   <!-- Node 1: OTel to Prometheus -->
   <path d="M 150,620 L 150,660" class="line-green" marker-end="url(#arrowhead-green)"/>
@@ -272,9 +267,9 @@
   <!-- Node 1: Prometheus to Thanos Sidecar -->
   <path d="M 220,700 L 240,700" class="line-purple" marker-end="url(#arrowhead-purple)"/>
 
-  <!-- Node 1: Prometheus to Local Thanos Receiver (left side) -->
-  <path d="M 120,740 L 120,760 L 80,760 L 80,820" class="line-purple" marker-end="url(#arrowhead-purple)"/>
-  <text x="40" y="790" class="label" fill="#7b1fa2">Remote Write</text>
+  <!-- Node 1: Prometheus to Local Thanos Receiver (straight down) -->
+  <path d="M 150,740 L 150,780" class="line-purple" marker-end="url(#arrowhead-purple)"/>
+  <text x="170" y="760" class="label" fill="#7b1fa2">Remote Write</text>
 
   <!-- Node 1: Prometheus to Node 2 Thanos Receiver (cross-node remote write, very bottom) -->
   <path d="M 220,730 L 250,730 L 250,1010 L 1700,1010 L 1700,820 L 1780,820" class="line-purple" style="stroke-dasharray: 5,5" marker-end="url(#arrowhead-purple)"/>
@@ -333,9 +328,9 @@
   <path d="M 1520,460 L 1340,460 L 1340,740 L 1210,740 L 1210,780" class="line-purple" marker-end="url(#arrowhead-purple)"/>
   <text x="1250" y="455" class="label" fill="#7b1fa2">Query Frontend :19193</text>
 
-  <!-- HAProxy to Thanos Query (right side curve - 완전히 분리) -->
-  <path d="M 1620,500 L 1800,500 L 1800,750 L 1760,750 L 1760,780" class="line-purple" style="stroke-dasharray: 3,3" marker-end="url(#arrowhead-purple)"/>
-  <text x="1830" y="640" class="label" fill="#7b1fa2">Query :9192</text>
+  <!-- HAProxy to Thanos Query (direct down to right) -->
+  <path d="M 1620,480 L 1690,480 L 1690,780" class="line-purple" style="stroke-dasharray: 3,3" marker-end="url(#arrowhead-purple)"/>
+  <text x="1630" y="630" class="label" fill="#7b1fa2">Query :9192</text>
 
   <!-- Node 2: OTel to Prometheus -->
   <path d="M 1850,620 L 1850,660" class="line-green" marker-end="url(#arrowhead-green)"/>
@@ -344,9 +339,9 @@
   <!-- Node 2: Prometheus to Thanos Sidecar -->
   <path d="M 1780,700 L 1760,700" class="line-purple" marker-end="url(#arrowhead-purple)"/>
 
-  <!-- Node 2: Prometheus to Local Thanos Receiver (right side) -->
-  <path d="M 1880,740 L 1880,760 L 1920,760 L 1920,820 L 1920,820" class="line-purple" marker-end="url(#arrowhead-purple)"/>
-  <text x="1930" y="790" class="label" fill="#7b1fa2">Remote Write</text>
+  <!-- Node 2: Prometheus to Local Thanos Receiver (straight down) -->
+  <path d="M 1850,740 L 1850,780" class="line-purple" marker-end="url(#arrowhead-purple)"/>
+  <text x="1790" y="760" class="label" fill="#7b1fa2">Remote Write</text>
 
   <!-- Node 2: Prometheus to Node 1 Thanos Receiver (cross-node remote write, very bottom) -->
   <path d="M 1780,730 L 1750,730 L 1750,1030 L 300,1030 L 300,820 L 220,820" class="line-purple" style="stroke-dasharray: 5,5" marker-end="url(#arrowhead-purple)"/>
@@ -391,9 +386,9 @@
   <line x1="900" y1="1080" x2="1100" y2="1080" class="line-brown" style="stroke-dasharray: 5,5"/>
   <text x="1000" y="1075" class="label" fill="#5d4037">Distributed Cluster Sync</text>
 
-  <!-- Buckets to Storage Pool -->
-  <path d="M 860,1430 L 850,1400" class="line-brown" marker-end="url(#arrowhead-brown)"/>
-  <path d="M 1140,1430 L 1140,1400" class="line-brown" marker-end="url(#arrowhead-brown)"/>
+  <!-- Buckets to Storage Pool (Both buckets point to shared pool) -->
+  <path d="M 860,1430 L 900,1400" class="line-brown" marker-end="url(#arrowhead-brown)"/>
+  <path d="M 1140,1430 L 1100,1400" class="line-brown" marker-end="url(#arrowhead-brown)"/>
 
   <!-- Legend -->
   <rect x="50" y="1610" width="1900" height="180" fill="#fafafa" stroke="#999" stroke-width="1" rx="5"/>
