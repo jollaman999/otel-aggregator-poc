@@ -24,19 +24,6 @@ backend otlp_http_backend
     server aggregator-1 ${NODE_IP}:14318 check inter 2000 rise 2 fall 3
     server aggregator-2 ${PEER_IP}:14318 check inter 2000 rise 2 fall 3
 
-frontend prometheus_frontend
-    bind *:9090
-    mode http
-    default_backend prometheus_backend
-
-backend prometheus_backend
-    mode http
-    balance roundrobin
-    option httpchk GET /-/healthy
-    http-check expect status 200
-    server prometheus-1 ${NODE_IP}:19090 check inter 2000 rise 2 fall 3
-    server prometheus-2 ${PEER_IP}:19090 check inter 2000 rise 2 fall 3
-
 frontend loki_frontend
     bind *:3100
     mode http
@@ -49,6 +36,19 @@ backend loki_backend
     http-check expect status 200
     server loki-1 ${NODE_IP}:13100 check inter 2000 rise 2 fall 3
     server loki-2 ${PEER_IP}:13100 check inter 2000 rise 2 fall 3
+
+frontend thanos_query_frontend
+    bind *:19193
+    mode http
+    default_backend thanos_query_backend
+
+backend thanos_query_backend
+    mode http
+    balance roundrobin
+    option httpchk GET /-/healthy
+    http-check expect status 200
+    server thanos-query-1 ${NODE_IP}:29193 check inter 2000 rise 2 fall 3
+    server thanos-query-2 ${PEER_IP}:29193 check inter 2000 rise 2 fall 3
 
 listen stats
     bind *:8404
