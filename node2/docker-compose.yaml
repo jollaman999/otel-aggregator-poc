@@ -25,6 +25,7 @@ services:
     build:
       context: ./haproxy
       dockerfile: Dockerfile
+      network: host
     container_name: haproxy-${NODE_NAME}
     restart: always
     network_mode: host
