@@ -22,8 +22,8 @@ backend otlp_http_backend
     mode http
     balance roundrobin
     option httpchk GET /
-    server aggregator-1 ${NODE_IP}:14318 check inter 2000 rise 2 fall 3
-    server aggregator-2 ${PEER_IP}:14318 check inter 2000 rise 2 fall 3
+    server aggregator-1 ${PEER_IP}:14318 check inter 2000 rise 2 fall 3
+    server aggregator-2 ${NODE_IP}:14318 check inter 2000 rise 2 fall 3
 
 frontend prometheus_frontend
     bind *:9090
@@ -35,8 +35,8 @@ backend prometheus_backend
     balance roundrobin
     option httpchk GET /-/healthy
     http-check expect status 200
-    server prometheus-1 ${NODE_IP}:19090 check inter 2000 rise 2 fall 3
-    server prometheus-2 ${PEER_IP}:19090 check inter 2000 rise 2 fall 3
+    server prometheus-1 ${PEER_IP}:19090 check inter 2000 rise 2 fall 3
+    server prometheus-2 ${NODE_IP}:19090 check inter 2000 rise 2 fall 3
 
 frontend loki_frontend
     bind *:3100
@@ -48,8 +48,8 @@ backend loki_backend
     balance roundrobin
     option httpchk GET /ready
     http-check expect status 200
-    server loki-1 ${NODE_IP}:13100 check inter 2000 rise 2 fall 3
-    server loki-2 ${PEER_IP}:13100 check inter 2000 rise 2 fall 3
+    server loki-1 ${PEER_IP}:13100 check inter 2000 rise 2 fall 3
+    server loki-2 ${NODE_IP}:13100 check inter 2000 rise 2 fall 3
 
 listen stats
     bind *:8404
