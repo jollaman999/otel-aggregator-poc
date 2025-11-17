@@ -105,7 +105,7 @@ services:
       - '--config.file=/etc/prometheus/prometheus.yml'
       - '--web.listen-address=0.0.0.0:19090'
       - '--storage.tsdb.path=/prometheus'
-      - '--storage.tsdb.retention.time=15d'
+      - '--storage.tsdb.retention.time=2h'
       - '--storage.tsdb.min-block-duration=2h'
       - '--storage.tsdb.max-block-duration=2h'
       - '--web.enable-lifecycle'
@@ -145,7 +145,7 @@ services:
     command:
       - 'sidecar'
       - '--tsdb.path=/prometheus'
-      - '--prometheus.url=http://127.0.0.1:9090'
+      - '--prometheus.url=http://127.0.0.1:19090'
       - '--grpc-address=0.0.0.0:10901'
       - '--http-address=0.0.0.0:10902'
       - '--objstore.config-file=/etc/thanos/bucket.yml'
@@ -193,7 +193,10 @@ services:
     depends_on:
       thanos-receiver-init-volumes:
         condition: service_completed_successfully
+      minio:
+        condition: service_healthy
     healthcheck:
+      start_period: 120s
       test: ["CMD", "wget", "--spider", "-q", "http://127.0.0.1:10909/-/healthy"]
       interval: 30s
       timeout: 10s
@@ -207,6 +210,142 @@ services:
     command: [ "sh", "-c", "chown -R 1001:1001 /thanos-receiver" ]
     volumes:
       - /data/volume/otel/thanos-receiver:/thanos-receiver
+    user: root
+    init: true
+
+  thanos-query:
+    image: thanosio/thanos:v0.40.1
+    container_name: thanos-query-${NODE_NAME}
+    restart: always
+    network_mode: host
+    command:
+      - 'query'
+      - '--http-address=0.0.0.0:19192'
+      - '--grpc-address=0.0.0.0:10904'
+      - '--endpoint=${NODE_IP}:10901'
+      - '--endpoint=${PEER_IP}:10901'
+      - '--endpoint=${NODE_IP}:10907'
+      - '--endpoint=${PEER_IP}:10907'
+      - '--endpoint=127.0.0.1:10905'
+      - '--query.replica-label=replica'
+      - '--query.replica-label=receive_replica'
+      - '--query.auto-downsampling'
+    environment:
+      - NODE_IP=${NODE_IP}
+      - PEER_IP=${PEER_IP}
+    depends_on:
+      thanos-sidecar:
+        condition: service_healthy
+      thanos-receiver:
+        condition: service_healthy
+    healthcheck:
+      start_period: 120s
+      test: ["CMD", "wget", "--spider", "-q", "http://127.0.0.1:19192/-/healthy"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  thanos-query-frontend:
+    image: thanosio/thanos:v0.40.1
+    container_name: thanos-query-frontend-${NODE_NAME}
+    restart: always
+    network_mode: host
+    command:
+      - 'query-frontend'
+      - '--http-address=0.0.0.0:29193'
+      - '--query-frontend.downstream-url=http://127.0.0.1:19192'
+      - '--query-range.split-interval=24h'
+      - '--query-range.max-retries-per-request=5'
+      - '--cache-compression-type=snappy'
+    depends_on:
+      thanos-query:
+        condition: service_healthy
+    healthcheck:
+      start_period: 120s
+      test: ["CMD", "wget", "--spider", "-q", "http://127.0.0.1:19193/-/healthy"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  thanos-store:
+    image: thanosio/thanos:v0.40.1
+    container_name: thanos-store-${NODE_NAME}
+    restart: always
+    network_mode: host
+    volumes:
+      - ./thanos/bucket.yml:/etc/thanos/bucket.yml:ro
+      - /data/volume/otel/thanos-store:/data
+    command:
+      - 'store'
+      - '--grpc-address=0.0.0.0:10905'
+      - '--http-address=0.0.0.0:10906'
+      - '--objstore.config-file=/etc/thanos/bucket.yml'
+      - '--data-dir=/data'
+      - '--index-cache-size=500MB'
+      - '--chunk-pool-size=500MB'
+    depends_on:
+      thanos-store-init-volumes:
+        condition: service_completed_successfully
+      minio:
+        condition: service_healthy
+    healthcheck:
+      start_period: 120s
+      test: ["CMD", "wget", "--spider", "-q", "http://127.0.0.1:10906/-/healthy"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  thanos-store-init-volumes:
+    image: busybox:stable
+    container_name: thanos-store-init-volumes
+    restart: no
+    network_mode: host
+    command: [ "sh", "-c", "chown -R 1001:1001 /data" ]
+    volumes:
+      - /data/volume/otel/thanos-store:/data
+    user: root
+    init: true
+
+  thanos-compactor:
+    image: thanosio/thanos:v0.40.1
+    container_name: thanos-compactor-${NODE_NAME}
+    restart: always
+    network_mode: host
+    volumes:
+      - ./thanos/bucket.yml:/etc/thanos/bucket.yml:ro
+      - /data/volume/otel/thanos-compactor:/data
+    command:
+      - 'compact'
+      - '--http-address=0.0.0.0:10912'
+      - '--objstore.config-file=/etc/thanos/bucket.yml'
+      - '--data-dir=/data'
+      - '--retention.resolution-raw=30d'
+      - '--retention.resolution-5m=90d'
+      - '--retention.resolution-1h=180d'
+      - '--wait'
+      - '--delete-delay=48h'
+      - '--compact.concurrency=1'
+      - '--downsample.concurrency=1'
+    depends_on:
+      thanos-compactor-init-volumes:
+        condition: service_completed_successfully
+      minio:
+        condition: service_healthy
+    healthcheck:
+      start_period: 120s
+      test: ["CMD", "wget", "--spider", "-q", "http://127.0.0.1:10912/-/healthy"]
+      interval: 60s
+      timeout: 10s
+      retries: 3
+
+  thanos-compactor-init-volumes:
+    image: busybox:stable
+    container_name: thanos-compactor-init-volumes
+    restart: no
+    network_mode: host
+    command: [ "sh", "-c", "chown -R 1001:1001 /data" ]
+    volumes:
+      - /data/volume/otel/thanos-compactor:/data
     user: root
     init: true
 
