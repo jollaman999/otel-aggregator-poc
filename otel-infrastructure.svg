@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1400" width="1600" height="1400">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1800 1600" width="1800" height="1600">
   <!-- Define styles -->
   <defs>
     <style>
@@ -9,6 +9,9 @@
       .backup-box { fill: #f3e5f5; stroke: #7b1fa2; stroke-width: 2; }
       .storage-box { fill: #e8f5e9; stroke: #388e3c; stroke-width: 2; }
       .client-box { fill: #fce4ec; stroke: #c2185b; stroke-width: 2; }
+      .keepalived-box { fill: #ffebee; stroke: #d32f2f; stroke-width: 2; }
+      .haproxy-box { fill: #e8eaf6; stroke: #3f51b5; stroke-width: 2; }
+      .minio-cluster { fill: #f1f8e9; stroke: #689f38; stroke-width: 3; stroke-dasharray: 8,4; }
       .text { font-family: Arial, sans-serif; font-size: 14px; fill: #333; text-anchor: middle; }
       .text-small { font-family: Arial, sans-serif; font-size: 11px; fill: #666; text-anchor: middle; }
       .title { font-family: Arial, sans-serif; font-size: 20px; font-weight: bold; fill: #1a237e; text-anchor: middle; }
@@ -19,6 +22,7 @@
       .line-green { stroke: #388e3c; stroke-width: 2; fill: none; }
       .line-purple { stroke: #7b1fa2; stroke-width: 2; fill: none; }
       .line-brown { stroke: #5d4037; stroke-width: 2; fill: none; }
+      .line-red { stroke: #d32f2f; stroke-width: 2; fill: none; }
       .arrow { stroke: #333; stroke-width: 2; fill: #333; }
     </style>
 
@@ -38,38 +42,50 @@
     <marker id="arrowhead-purple" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
       <polygon points="0 0, 10 3, 0 6" fill="#7b1fa2" />
     </marker>
+    <marker id="arrowhead-red" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="#d32f2f" />
+    </marker>
+    <marker id="arrowhead-brown" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="#5d4037" />
+    </marker>
   </defs>
 
   <!-- Title -->
-  <text x="800" y="30" class="title">OpenTelemetry High Availability Infrastructure</text>
+  <text x="900" y="30" class="title">OpenTelemetry High Availability Infrastructure</text>
 
   <!-- External Clients -->
-  <rect x="700" y="60" width="200" height="60" class="client-box" rx="5"/>
-  <text x="800" y="85" class="text">External Clients</text>
-  <text x="800" y="105" class="text-small">(OTLP/HTTP)</text>
+  <rect x="800" y="60" width="200" height="60" class="client-box" rx="5"/>
+  <text x="900" y="85" class="text">External Clients</text>
+  <text x="900" y="105" class="text-small">(OTLP/HTTP)</text>
 
   <!-- Virtual IP -->
-  <rect x="650" y="160" width="300" height="100" class="vip-box" rx="5"/>
-  <text x="800" y="185" class="text" style="font-weight: bold;">Virtual IP: 192.168.110.140</text>
-  <text x="800" y="205" class="text-small">OTLP :4318 | Thanos QF :19193</text>
-  <text x="800" y="225" class="text-small">Thanos Q :9192 | Loki :3100</text>
-  <text x="800" y="245" class="text-small">(Keepalived VRRP)</text>
+  <rect x="750" y="160" width="300" height="100" class="vip-box" rx="5"/>
+  <text x="900" y="185" class="text" style="font-weight: bold;">Virtual IP: 192.168.110.140</text>
+  <text x="900" y="205" class="text-small">OTLP :4318 | Thanos QF :19193</text>
+  <text x="900" y="225" class="text-small">Thanos Q :9192 | Loki :3100</text>
+  <text x="900" y="245" class="text-small">(VRRP Managed)</text>
 
   <!-- Node 1 (MASTER) -->
-  <rect x="50" y="300" width="650" height="550" class="cluster" rx="10"/>
-  <text x="375" y="325" class="text" style="font-weight: bold;">Node 1 - MASTER (192.168.110.214)</text>
+  <rect x="50" y="300" width="750" height="650" class="cluster" rx="10"/>
+  <text x="425" y="325" class="text" style="font-weight: bold;">Node 1 - MASTER (192.168.110.214)</text>
 
-  <!-- Node 1: HAProxy + Keepalived -->
-  <rect x="80" y="340" width="180" height="80" class="master-box" rx="5"/>
-  <text x="170" y="365" class="text">Keepalived</text>
-  <text x="170" y="385" class="text-small">Priority: 100</text>
-  <text x="170" y="405" class="text-small">HAProxy :4318/19193/9192/3100</text>
+  <!-- Node 1: Keepalived (Separate) -->
+  <rect x="80" y="340" width="140" height="70" class="keepalived-box" rx="5"/>
+  <text x="150" y="365" class="text" style="font-weight: bold;">Keepalived</text>
+  <text x="150" y="385" class="text-small">Priority: 100</text>
+  <text x="150" y="405" class="text-small">State: MASTER</text>
+
+  <!-- Node 1: HAProxy (Separate) -->
+  <rect x="240" y="340" width="140" height="70" class="haproxy-box" rx="5"/>
+  <text x="310" y="365" class="text" style="font-weight: bold;">HAProxy</text>
+  <text x="310" y="385" class="text-small">:4318/:19193</text>
+  <text x="310" y="405" class="text-small">:9192/:3100</text>
 
   <!-- Node 1: OTel Aggregator -->
-  <rect x="280" y="340" width="140" height="80" class="master-box" rx="5"/>
-  <text x="350" y="365" class="text">OTel Aggregator</text>
-  <text x="350" y="385" class="text-small">:14318 (HTTP)</text>
-  <text x="350" y="405" class="text-small">:14317 (gRPC)</text>
+  <rect x="400" y="340" width="140" height="70" class="master-box" rx="5"/>
+  <text x="470" y="365" class="text">OTel Aggregator</text>
+  <text x="470" y="385" class="text-small">:14318 (HTTP)</text>
+  <text x="470" y="405" class="text-small">:14317 (gRPC)</text>
 
   <!-- Node 1: Prometheus -->
   <rect x="80" y="450" width="140" height="80" class="master-box" rx="5"/>
@@ -109,210 +125,302 @@
   <text x="310" y="715" class="text-small">:10912</text>
 
   <!-- Node 1: Loki -->
-  <rect x="450" y="340" width="220" height="80" class="master-box" rx="5"/>
-  <text x="560" y="365" class="text">Loki</text>
-  <text x="560" y="385" class="text-small">:13100</text>
-  <text x="560" y="405" class="text-small">Retention: 90 days</text>
+  <rect x="570" y="340" width="200" height="80" class="master-box" rx="5"/>
+  <text x="670" y="365" class="text">Loki</text>
+  <text x="670" y="385" class="text-small">:13100</text>
+  <text x="670" y="405" class="text-small">Retention: 90 days</text>
 
   <!-- Node 1: MinIO -->
-  <rect x="450" y="450" width="220" height="80" class="master-box" rx="5"/>
-  <text x="560" y="475" class="text">MinIO Node 1</text>
-  <text x="560" y="495" class="text-small">:9000 (S3 API)</text>
-  <text x="560" y="515" class="text-small">/data1 + /data2</text>
+  <rect x="570" y="800" width="200" height="80" class="master-box" rx="5"/>
+  <text x="670" y="825" class="text">MinIO Node 1</text>
+  <text x="670" y="845" class="text-small">:9000 (S3 API)</text>
+  <text x="670" y="865" class="text-small">/data1 + /data2</text>
 
   <!-- Node 2 (BACKUP) -->
-  <rect x="900" y="300" width="650" height="550" class="cluster" rx="10"/>
-  <text x="1225" y="325" class="text" style="font-weight: bold;">Node 2 - BACKUP (192.168.110.119)</text>
+  <rect x="1000" y="300" width="750" height="650" class="cluster" rx="10"/>
+  <text x="1375" y="325" class="text" style="font-weight: bold;">Node 2 - BACKUP (192.168.110.119)</text>
 
-  <!-- Node 2: HAProxy + Keepalived -->
-  <rect x="1370" y="340" width="160" height="80" class="backup-box" rx="5"/>
-  <text x="1450" y="365" class="text">Keepalived</text>
-  <text x="1450" y="385" class="text-small">Priority: 90</text>
-  <text x="1450" y="405" class="text-small">HAProxy :4318/...</text>
+  <!-- Node 2: Keepalived (Separate) -->
+  <rect x="1570" y="340" width="140" height="70" class="keepalived-box" rx="5"/>
+  <text x="1640" y="365" class="text" style="font-weight: bold;">Keepalived</text>
+  <text x="1640" y="385" class="text-small">Priority: 90</text>
+  <text x="1640" y="405" class="text-small">State: BACKUP</text>
+
+  <!-- Node 2: HAProxy (Separate) -->
+  <rect x="1410" y="340" width="140" height="70" class="haproxy-box" rx="5"/>
+  <text x="1480" y="365" class="text" style="font-weight: bold;">HAProxy</text>
+  <text x="1480" y="385" class="text-small">:4318/:19193</text>
+  <text x="1480" y="405" class="text-small">:9192/:3100</text>
 
   <!-- Node 2: OTel Aggregator -->
-  <rect x="1180" y="340" width="140" height="80" class="backup-box" rx="5"/>
-  <text x="1250" y="365" class="text">OTel Aggregator</text>
-  <text x="1250" y="385" class="text-small">:14318 (HTTP)</text>
-  <text x="1250" y="405" class="text-small">:14317 (gRPC)</text>
+  <rect x="1250" y="340" width="140" height="70" class="backup-box" rx="5"/>
+  <text x="1320" y="365" class="text">OTel Aggregator</text>
+  <text x="1320" y="385" class="text-small">:14318 (HTTP)</text>
+  <text x="1320" y="405" class="text-small">:14317 (gRPC)</text>
 
   <!-- Node 2: Prometheus -->
-  <rect x="1370" y="450" width="140" height="80" class="backup-box" rx="5"/>
-  <text x="1440" y="475" class="text">Prometheus</text>
-  <text x="1440" y="495" class="text-small">:19090</text>
-  <text x="1440" y="515" class="text-small">Retention: 2h</text>
+  <rect x="1570" y="450" width="140" height="80" class="backup-box" rx="5"/>
+  <text x="1640" y="475" class="text">Prometheus</text>
+  <text x="1640" y="495" class="text-small">:19090</text>
+  <text x="1640" y="515" class="text-small">Retention: 2h</text>
 
   <!-- Node 2: Thanos Sidecar -->
-  <rect x="1210" y="450" width="140" height="80" class="backup-box" rx="5"/>
-  <text x="1280" y="475" class="text">Thanos Sidecar</text>
-  <text x="1280" y="495" class="text-small">:10901/:10902</text>
+  <rect x="1410" y="450" width="140" height="80" class="backup-box" rx="5"/>
+  <text x="1480" y="475" class="text">Thanos Sidecar</text>
+  <text x="1480" y="495" class="text-small">:10901/:10902</text>
 
   <!-- Node 2: Thanos Receiver -->
-  <rect x="1370" y="560" width="140" height="80" class="backup-box" rx="5"/>
-  <text x="1440" y="585" class="text">Thanos Receiver</text>
-  <text x="1440" y="605" class="text-small">:19291/:10907</text>
-  <text x="1440" y="625" class="text-small">:10909</text>
+  <rect x="1570" y="560" width="140" height="80" class="backup-box" rx="5"/>
+  <text x="1640" y="585" class="text">Thanos Receiver</text>
+  <text x="1640" y="605" class="text-small">:19291/:10907</text>
+  <text x="1640" y="625" class="text-small">:10909</text>
 
   <!-- Node 2: Thanos Query -->
-  <rect x="1210" y="560" width="140" height="80" class="backup-box" rx="5"/>
-  <text x="1280" y="585" class="text">Thanos Query</text>
-  <text x="1280" y="605" class="text-small">:19192/:10904</text>
+  <rect x="1410" y="560" width="140" height="80" class="backup-box" rx="5"/>
+  <text x="1480" y="585" class="text">Thanos Query</text>
+  <text x="1480" y="605" class="text-small">:19192/:10904</text>
 
   <!-- Node 2: Query Frontend -->
-  <rect x="1050" y="560" width="140" height="80" class="backup-box" rx="5"/>
-  <text x="1120" y="585" class="text">Query Frontend</text>
-  <text x="1120" y="605" class="text-small">:29193</text>
+  <rect x="1250" y="560" width="140" height="80" class="backup-box" rx="5"/>
+  <text x="1320" y="585" class="text">Query Frontend</text>
+  <text x="1320" y="605" class="text-small">:29193</text>
 
   <!-- Node 2: Thanos Store -->
-  <rect x="1370" y="670" width="140" height="60" class="backup-box" rx="5"/>
-  <text x="1440" y="695" class="text">Thanos Store</text>
-  <text x="1440" y="715" class="text-small">:10905/:10906</text>
+  <rect x="1570" y="670" width="140" height="60" class="backup-box" rx="5"/>
+  <text x="1640" y="695" class="text">Thanos Store</text>
+  <text x="1640" y="715" class="text-small">:10905/:10906</text>
 
   <!-- Node 2: Compactor -->
-  <rect x="1210" y="670" width="140" height="60" class="backup-box" rx="5"/>
-  <text x="1280" y="695" class="text">Compactor</text>
-  <text x="1280" y="715" class="text-small">:10912</text>
+  <rect x="1410" y="670" width="140" height="60" class="backup-box" rx="5"/>
+  <text x="1480" y="695" class="text">Compactor</text>
+  <text x="1480" y="715" class="text-small">:10912</text>
 
   <!-- Node 2: Loki -->
-  <rect x="930" y="340" width="220" height="80" class="backup-box" rx="5"/>
-  <text x="1040" y="365" class="text">Loki</text>
-  <text x="1040" y="385" class="text-small">:13100</text>
-  <text x="1040" y="405" class="text-small">Retention: 90 days</text>
+  <rect x="1030" y="340" width="200" height="80" class="backup-box" rx="5"/>
+  <text x="1130" y="365" class="text">Loki</text>
+  <text x="1130" y="385" class="text-small">:13100</text>
+  <text x="1130" y="405" class="text-small">Retention: 90 days</text>
 
   <!-- Node 2: MinIO -->
-  <rect x="930" y="450" width="220" height="80" class="backup-box" rx="5"/>
-  <text x="1040" y="475" class="text">MinIO Node 2</text>
-  <text x="1040" y="495" class="text-small">:9000 (S3 API)</text>
-  <text x="1040" y="515" class="text-small">/data1 + /data2</text>
+  <rect x="1030" y="800" width="200" height="80" class="backup-box" rx="5"/>
+  <text x="1130" y="825" class="text">MinIO Node 2</text>
+  <text x="1130" y="845" class="text-small">:9000 (S3 API)</text>
+  <text x="1130" y="865" class="text-small">/data1 + /data2</text>
 
-  <!-- MinIO Distributed Cluster -->
-  <rect x="600" y="1000" width="400" height="180" class="storage-box" rx="10"/>
-  <text x="800" y="1025" class="text" style="font-weight: bold;">MinIO Distributed Cluster</text>
-  <text x="800" y="1045" class="text-small">(Erasure Coding)</text>
+  <!-- MinIO Distributed Cluster with Buckets -->
+  <rect x="550" y="1050" width="700" height="280" class="minio-cluster" rx="10"/>
+  <text x="900" y="1080" class="text" style="font-weight: bold; font-size: 16px;">MinIO Distributed Cluster (Erasure Coding)</text>
+  <text x="900" y="1105" class="text-small">4 Drives across 2 Nodes - Distributed Mode</text>
+
+  <!-- MinIO Architecture -->
+  <rect x="580" y="1130" width="280" height="80" class="storage-box" rx="5"/>
+  <text x="720" y="1155" class="text" style="font-weight: bold;">MinIO Storage Pool</text>
+  <text x="720" y="1175" class="text-small">Node1:/data1 + Node1:/data2</text>
+  <text x="720" y="1195" class="text-small">Node2:/data1 + Node2:/data2</text>
+
+  <rect x="940" y="1130" width="280" height="80" class="storage-box" rx="5"/>
+  <text x="1080" y="1155" class="text" style="font-weight: bold;">Replication</text>
+  <text x="1080" y="1175" class="text-small">Erasure Coding: EC:2</text>
+  <text x="1080" y="1195" class="text-small">Fault Tolerance: 2 drives</text>
 
   <!-- MinIO Buckets -->
-  <rect x="650" y="1070" width="140" height="80" class="storage-box" rx="5"/>
-  <text x="720" y="1095" class="text">Bucket:</text>
-  <text x="720" y="1115" class="text">thanos-metrics</text>
-  <text x="720" y="1135" class="text-small">(Metrics Storage)</text>
+  <rect x="600" y="1240" width="250" height="70" class="storage-box" rx="5" style="fill: #c8e6c9;"/>
+  <text x="725" y="1265" class="text" style="font-weight: bold;">Bucket: thanos-metrics</text>
+  <text x="725" y="1285" class="text-small">Stores: Prometheus Blocks</text>
+  <text x="725" y="1300" class="text-small">Used by: Thanos Components</text>
 
-  <rect x="810" y="1070" width="140" height="80" class="storage-box" rx="5"/>
-  <text x="880" y="1095" class="text">Bucket:</text>
-  <text x="880" y="1115" class="text">loki-data</text>
-  <text x="880" y="1135" class="text-small">(Logs Storage)</text>
+  <rect x="900" y="1240" width="250" height="70" class="storage-box" rx="5" style="fill: #ffe0b2;"/>
+  <text x="1025" y="1265" class="text" style="font-weight: bold;">Bucket: loki-data</text>
+  <text x="1025" y="1285" class="text-small">Stores: Log Chunks/Index</text>
+  <text x="1025" y="1300" class="text-small">Used by: Loki Instances</text>
 
   <!-- Connections: Clients to VIP -->
-  <line x1="800" y1="120" x2="800" y2="160" class="line-blue" marker-end="url(#arrowhead-blue)"/>
-  <text x="830" y="145" class="label" fill="#1976d2">OTLP/HTTP</text>
+  <line x1="900" y1="120" x2="900" y2="160" class="line-blue" marker-end="url(#arrowhead-blue)"/>
+  <text x="930" y="145" class="label" fill="#1976d2">OTLP/HTTP</text>
 
-  <!-- VIP to Node 1 HAProxy -->
-  <line x1="700" y1="260" x2="170" y2="340" class="line" marker-end="url(#arrowhead)"/>
-  <text x="400" y="295" class="label">VRRP Failover</text>
+  <!-- VIP to Node 1 Keepalived -->
+  <line x1="800" y1="260" x2="200" y2="340" class="line-red" marker-end="url(#arrowhead-red)"/>
+  <text x="450" y="290" class="label" fill="#d32f2f">VRRP Failover</text>
 
-  <!-- VIP to Node 2 HAProxy -->
-  <line x1="900" y1="260" x2="1450" y2="340" class="line" marker-end="url(#arrowhead)"/>
+  <!-- VIP to Node 2 Keepalived -->
+  <line x1="1000" y1="260" x2="1590" y2="340" class="line-red" marker-end="url(#arrowhead-red)"/>
+
+  <!-- Node 1: Keepalived to HAProxy -->
+  <line x1="220" y1="375" x2="240" y2="375" class="line-red" marker-end="url(#arrowhead-red)"/>
+  <text x="230" y="365" class="label" fill="#d32f2f">Monitor</text>
 
   <!-- Node 1: HAProxy to OTel -->
-  <line x1="260" y1="380" x2="280" y2="380" class="line-blue" marker-end="url(#arrowhead-blue)"/>
+  <line x1="380" y1="375" x2="400" y2="375" class="line-blue" marker-end="url(#arrowhead-blue)"/>
+  <text x="390" y="365" class="label" fill="#1976d2">LB</text>
 
   <!-- Node 1: OTel to Prometheus -->
-  <line x1="310" y1="420" x2="190" y2="450" class="line-green" marker-end="url(#arrowhead-green)"/>
-  <text x="240" y="435" class="label" fill="#388e3c">Remote Write</text>
+  <line x1="430" y1="410" x2="190" y2="450" class="line-green" marker-end="url(#arrowhead-green)"/>
+  <text x="290" y="425" class="label" fill="#388e3c">Remote Write</text>
 
   <!-- Node 1: OTel to Loki -->
-  <line x1="420" y1="380" x2="450" y2="380" class="line-orange" marker-end="url(#arrowhead-orange)"/>
-  <text x="435" y="375" class="label" fill="#f57c00">Logs</text>
+  <line x1="540" y1="380" x2="570" y2="380" class="line-orange" marker-end="url(#arrowhead-orange)"/>
+  <text x="555" y="370" class="label" fill="#f57c00">Logs</text>
 
   <!-- Node 1: Prometheus to Thanos Sidecar -->
   <line x1="220" y1="490" x2="240" y2="490" class="line-purple" marker-end="url(#arrowhead-purple)"/>
 
-  <!-- Node 1: Prometheus to Thanos Receiver -->
-  <line x1="150" y1="530" x2="150" y2="560" class="line-purple" marker-end="url(#arrowhead-purple)"/>
-  <text x="175" y="545" class="label" fill="#7b1fa2">Remote Write</text>
+  <!-- Node 1: Prometheus to Thanos Receiver (via vertical path) -->
+  <path d="M 150,530 L 150,545 L 80,545 L 80,560" class="line-purple" marker-end="url(#arrowhead-purple)"/>
+  <text x="35" y="545" class="label" fill="#7b1fa2">Remote Write</text>
+
+  <!-- Node 1: Prometheus to Node 2 Thanos Receiver (curved path to avoid overlap) -->
+  <path d="M 220,520 L 250,520 L 250,750 L 1500,750 L 1500,640 L 1570,640" class="line-purple" style="stroke-dasharray: 5,5" marker-end="url(#arrowhead-purple)"/>
+  <text x="850" y="745" class="label" fill="#7b1fa2">Cross-node Remote Write</text>
 
   <!-- Node 1: Query Frontend to Query -->
   <line x1="400" y1="600" x2="380" y2="600" class="line-purple" marker-end="url(#arrowhead-purple)"/>
 
-  <!-- Node 1: Thanos Query to Store/Sidecar/Receiver -->
-  <line x1="280" y1="620" x2="220" y2="650" class="line-purple" marker-end="url(#arrowhead-purple)"/>
+  <!-- Node 1: Thanos Query to Sidecar -->
   <line x1="310" y1="560" x2="310" y2="530" class="line-purple" marker-end="url(#arrowhead-purple)"/>
 
-  <!-- Node 1: Thanos components to MinIO bucket -->
-  <line x1="310" y1="530" x2="560" y2="530" class="line-purple" marker-end="url(#arrowhead-purple)"/>
-  <line x1="150" y1="730" x2="650" y2="950" class="line-purple" marker-end="url(#arrowhead-purple)"/>
-  <text x="350" y="840" class="label" fill="#7b1fa2">Upload Blocks</text>
+  <!-- Node 1: Thanos Query to Receiver -->
+  <line x1="240" y1="600" x2="220" y2="600" class="line-purple" marker-end="url(#arrowhead-purple)"/>
+
+  <!-- Node 1: Thanos Query to Store -->
+  <line x1="280" y1="640" x2="200" y2="670" class="line-purple" marker-end="url(#arrowhead-purple)"/>
+
+  <!-- Node 1: Thanos Sidecar to MinIO bucket -->
+  <path d="M 310,530 L 310,750 L 670,750 L 670,800" class="line-purple" marker-end="url(#arrowhead-purple)"/>
+  <text x="320" y="640" class="label" fill="#7b1fa2">Upload</text>
+
+  <!-- Node 1: Thanos Store to MinIO bucket -->
+  <path d="M 150,730 L 150,950 L 700,950 L 700,1050" class="line-purple" marker-end="url(#arrowhead-purple)"/>
+  <text x="170" y="840" class="label" fill="#7b1fa2">Read Blocks</text>
+
+  <!-- Node 1: Thanos Receiver to MinIO bucket -->
+  <path d="M 150,640 L 50,640 L 50,920 L 650,920 L 650,1050" class="line-purple" marker-end="url(#arrowhead-purple)"/>
+  <text x="60" y="780" class="label" fill="#7b1fa2">Upload</text>
+
+  <!-- Node 1: Compactor to MinIO bucket -->
+  <path d="M 310,730 L 310,980 L 750,980 L 750,1050" class="line-purple" marker-end="url(#arrowhead-purple)"/>
+  <text x="320" y="860" class="label" fill="#7b1fa2">Compact</text>
 
   <!-- Node 1: Loki to MinIO bucket -->
-  <line x1="620" y1="420" x2="830" y2="920" class="line-orange" marker-end="url(#arrowhead-orange)"/>
-  <text x="730" y="670" class="label" fill="#f57c00">Store Logs</text>
+  <path d="M 670,420 L 670,760 L 800,760 L 800,1050" class="line-orange" marker-end="url(#arrowhead-orange)"/>
+  <text x="680" y="730" class="label" fill="#f57c00">Store Logs</text>
 
-  <!-- Node 1: MinIO to Buckets -->
-  <line x1="560" y1="530" x2="720" y2="1000" class="line-brown" marker-end="url(#arrowhead)"/>
+  <!-- Node 1: MinIO to Distributed Cluster -->
+  <line x1="670" y1="880" x2="720" y2="1050" class="line-brown" marker-end="url(#arrowhead-brown)"/>
+  <text x="680" y="965" class="label" fill="#5d4037">Erasure Coding</text>
+
+  <!-- Node 2: Keepalived to HAProxy -->
+  <line x1="1570" y1="375" x2="1550" y2="375" class="line-red" marker-end="url(#arrowhead-red)"/>
+  <text x="1560" y="365" class="label" fill="#d32f2f">Monitor</text>
 
   <!-- Node 2: HAProxy to OTel -->
-  <line x1="1370" y1="380" x2="1320" y2="380" class="line-blue" marker-end="url(#arrowhead-blue)"/>
+  <line x1="1410" y1="375" x2="1390" y2="375" class="line-blue" marker-end="url(#arrowhead-blue)"/>
+  <text x="1400" y="365" class="label" fill="#1976d2">LB</text>
 
   <!-- Node 2: OTel to Prometheus -->
-  <line x1="1290" y1="420" x2="1400" y2="450" class="line-green" marker-end="url(#arrowhead-green)"/>
+  <path d="M 1360,410 L 1600,410 L 1600,450" class="line-green" marker-end="url(#arrowhead-green)"/>
+  <text x="1480" y="425" class="label" fill="#388e3c">Remote Write</text>
 
   <!-- Node 2: OTel to Loki -->
-  <line x1="1180" y1="380" x2="1150" y2="380" class="line-orange" marker-end="url(#arrowhead-orange)"/>
+  <line x1="1250" y1="380" x2="1230" y2="380" class="line-orange" marker-end="url(#arrowhead-orange)"/>
+  <text x="1240" y="370" class="label" fill="#f57c00">Logs</text>
 
   <!-- Node 2: Prometheus to Thanos Sidecar -->
-  <line x1="1370" y1="490" x2="1350" y2="490" class="line-purple" marker-end="url(#arrowhead-purple)"/>
+  <line x1="1570" y1="490" x2="1550" y2="490" class="line-purple" marker-end="url(#arrowhead-purple)"/>
 
-  <!-- Node 2: Prometheus to Thanos Receiver -->
-  <line x1="1440" y1="530" x2="1440" y2="560" class="line-purple" marker-end="url(#arrowhead-purple)"/>
+  <!-- Node 2: Prometheus to Thanos Receiver (via vertical path) -->
+  <path d="M 1640,530 L 1640,545 L 1710,545 L 1710,560" class="line-purple" marker-end="url(#arrowhead-purple)"/>
+  <text x="1720" y="545" class="label" fill="#7b1fa2">Remote Write</text>
+
+  <!-- Node 2: Prometheus to Node 1 Thanos Receiver (curved path to avoid overlap) -->
+  <path d="M 1570,520 L 1540,520 L 1540,780 L 300,780 L 300,640 L 220,640" class="line-purple" style="stroke-dasharray: 5,5" marker-end="url(#arrowhead-purple)"/>
 
   <!-- Node 2: Query Frontend to Query -->
-  <line x1="1190" y1="600" x2="1210" y2="600" class="line-purple" marker-end="url(#arrowhead-purple)"/>
+  <line x1="1390" y1="600" x2="1410" y2="600" class="line-purple" marker-end="url(#arrowhead-purple)"/>
 
-  <!-- Node 2: Thanos Query to Store/Sidecar -->
-  <line x1="1310" y1="640" x2="1370" y2="650" class="line-purple" marker-end="url(#arrowhead-purple)"/>
-  <line x1="1280" y1="560" x2="1280" y2="530" class="line-purple" marker-end="url(#arrowhead-purple)"/>
+  <!-- Node 2: Thanos Query to Sidecar -->
+  <line x1="1480" y1="560" x2="1480" y2="530" class="line-purple" marker-end="url(#arrowhead-purple)"/>
 
-  <!-- Node 2: Thanos components to MinIO bucket -->
-  <line x1="1440" y1="730" x2="770" y2="1000" class="line-purple" marker-end="url(#arrowhead-purple)"/>
+  <!-- Node 2: Thanos Query to Receiver -->
+  <line x1="1550" y1="600" x2="1570" y2="600" class="line-purple" marker-end="url(#arrowhead-purple)"/>
+
+  <!-- Node 2: Thanos Query to Store -->
+  <line x1="1510" y1="640" x2="1590" y2="670" class="line-purple" marker-end="url(#arrowhead-purple)"/>
+
+  <!-- Node 2: Thanos Sidecar to MinIO bucket -->
+  <path d="M 1480,530 L 1480,750 L 1130,750 L 1130,800" class="line-purple" marker-end="url(#arrowhead-purple)"/>
+  <text x="1300" y="640" class="label" fill="#7b1fa2">Upload</text>
+
+  <!-- Node 2: Thanos Store to MinIO bucket -->
+  <path d="M 1640,730 L 1640,950 L 1100,950 L 1100,1050" class="line-purple" marker-end="url(#arrowhead-purple)"/>
+  <text x="1580" y="840" class="label" fill="#7b1fa2">Read Blocks</text>
+
+  <!-- Node 2: Thanos Receiver to MinIO bucket -->
+  <path d="M 1640,640 L 1740,640 L 1740,920 L 1150,920 L 1150,1050" class="line-purple" marker-end="url(#arrowhead-purple)"/>
+  <text x="1700" y="780" class="label" fill="#7b1fa2">Upload</text>
+
+  <!-- Node 2: Compactor to MinIO bucket -->
+  <path d="M 1480,730 L 1480,980 L 1050,980 L 1050,1050" class="line-purple" marker-end="url(#arrowhead-purple)"/>
+  <text x="1420" y="860" class="label" fill="#7b1fa2">Compact</text>
 
   <!-- Node 2: Loki to MinIO bucket -->
-  <line x1="980" y1="420" x2="850" y2="950" class="line-orange" marker-end="url(#arrowhead-orange)"/>
+  <path d="M 1130,420 L 1130,760 L 1000,760 L 1000,1050" class="line-orange" marker-end="url(#arrowhead-orange)"/>
+  <text x="1070" y="730" class="label" fill="#f57c00">Store Logs</text>
 
-  <!-- Node 2: MinIO to Buckets -->
-  <line x1="1040" y1="530" x2="880" y2="1000" class="line-brown" marker-end="url(#arrowhead)"/>
-
-  <!-- Cross-node: Prometheus to opposite Receiver -->
-  <line x1="220" y1="600" x2="1380" y2="600" class="line-purple" style="stroke-dasharray: 5,5" marker-end="url(#arrowhead-purple)"/>
-  <text x="800" y="595" class="label" fill="#7b1fa2">Cross-node Remote Write</text>
+  <!-- Node 2: MinIO to Distributed Cluster -->
+  <line x1="1130" y1="880" x2="1080" y2="1050" class="line-brown" marker-end="url(#arrowhead-brown)"/>
+  <text x="1100" y="965" class="label" fill="#5d4037">Erasure Coding</text>
 
   <!-- MinIO inter-node replication -->
-  <line x1="670" y1="490" x2="930" y2="490" class="line-brown" style="stroke-dasharray: 5,5"/>
-  <text x="800" y="485" class="label" fill="#5d4037">Distributed Cluster</text>
+  <line x1="770" y1="840" x2="1030" y2="840" class="line-brown" style="stroke-dasharray: 5,5"/>
+  <text x="900" y="835" class="label" fill="#5d4037">Distributed Cluster Sync</text>
+
+  <!-- Buckets to Storage Pool -->
+  <line x1="725" y1="1240" x2="720" y2="1210" class="line-brown" marker-end="url(#arrowhead-brown)"/>
+  <line x1="1025" y1="1240" x2="1080" y2="1210" class="line-brown" marker-end="url(#arrowhead-brown)"/>
 
   <!-- Legend -->
-  <rect x="50" y="1250" width="1500" height="120" fill="#fafafa" stroke="#999" stroke-width="1" rx="5"/>
-  <text x="800" y="1275" class="text" style="font-weight: bold;">Legend</text>
+  <rect x="50" y="1400" width="1700" height="150" fill="#fafafa" stroke="#999" stroke-width="1" rx="5"/>
+  <text x="900" y="1425" class="text" style="font-weight: bold; font-size: 16px;">Legend</text>
 
-  <line x1="100" y1="1300" x2="150" y2="1300" class="line-blue" marker-end="url(#arrowhead-blue)"/>
-  <text x="200" y="1305" class="text-small" style="text-anchor: start;">OTLP Data Flow</text>
+  <line x1="100" y1="1450" x2="150" y2="1450" class="line-blue" marker-end="url(#arrowhead-blue)"/>
+  <text x="200" y="1455" class="text-small" style="text-anchor: start;">OTLP Data Flow</text>
 
-  <line x1="400" y1="1300" x2="450" y2="1300" class="line-green" marker-end="url(#arrowhead-green)"/>
-  <text x="500" y="1305" class="text-small" style="text-anchor: start;">Metrics Flow</text>
+  <line x1="400" y1="1450" x2="450" y2="1450" class="line-green" marker-end="url(#arrowhead-green)"/>
+  <text x="500" y="1455" class="text-small" style="text-anchor: start;">Metrics Flow</text>
 
-  <line x1="700" y1="1300" x2="750" y2="1300" class="line-orange" marker-end="url(#arrowhead-orange)"/>
-  <text x="800" y="1305" class="text-small" style="text-anchor: start;">Logs Flow</text>
+  <line x1="700" y1="1450" x2="750" y2="1450" class="line-orange" marker-end="url(#arrowhead-orange)"/>
+  <text x="800" y="1455" class="text-small" style="text-anchor: start;">Logs Flow</text>
 
-  <line x1="1000" y1="1300" x2="1050" y2="1300" class="line-purple" marker-end="url(#arrowhead-purple)"/>
-  <text x="1100" y="1305" class="text-small" style="text-anchor: start;">Thanos gRPC/Storage</text>
+  <line x1="1000" y1="1450" x2="1050" y2="1450" class="line-purple" marker-end="url(#arrowhead-purple)"/>
+  <text x="1100" y="1455" class="text-small" style="text-anchor: start;">Thanos gRPC/Storage</text>
 
-  <line x1="100" y1="1330" x2="150" y2="1330" class="line-brown" marker-end="url(#arrowhead)"/>
-  <text x="200" y="1335" class="text-small" style="text-anchor: start;">MinIO Storage</text>
+  <line x1="1400" y1="1450" x2="1450" y2="1450" class="line-red" marker-end="url(#arrowhead-red)"/>
+  <text x="1500" y="1455" class="text-small" style="text-anchor: start;">VRRP/HA Control</text>
 
-  <line x1="400" y1="1330" x2="450" y2="1330" class="line" style="stroke-dasharray: 5,5"/>
-  <text x="500" y="1335" class="text-small" style="text-anchor: start;">Cross-node Communication</text>
+  <line x1="100" y1="1480" x2="150" y2="1480" class="line-brown" marker-end="url(#arrowhead-brown)"/>
+  <text x="200" y="1485" class="text-small" style="text-anchor: start;">MinIO Storage</text>
 
-  <rect x="700" y="1315" width="30" height="20" class="vip-box" rx="2"/>
-  <text x="780" y="1330" class="text-small" style="text-anchor: start;">VIP/Load Balancer</text>
+  <line x1="400" y1="1480" x2="450" y2="1480" class="line" style="stroke-dasharray: 5,5"/>
+  <text x="500" y="1485" class="text-small" style="text-anchor: start;">Cross-node/Replication</text>
 
-  <rect x="1000" y="1315" width="30" height="20" class="storage-box" rx="2"/>
-  <text x="1080" y="1330" class="text-small" style="text-anchor: start;">Storage Layer</text>
+  <rect x="700" y="1465" width="30" height="20" class="keepalived-box" rx="2"/>
+  <text x="780" y="1480" class="text-small" style="text-anchor: start;">Keepalived (HA)</text>
+
+  <rect x="950" y="1465" width="30" height="20" class="haproxy-box" rx="2"/>
+  <text x="1030" y="1480" class="text-small" style="text-anchor: start;">HAProxy (LB)</text>
+
+  <rect x="1200" y="1465" width="30" height="20" class="storage-box" rx="2"/>
+  <text x="1280" y="1480" class="text-small" style="text-anchor: start;">Storage/Bucket</text>
+
+  <rect x="100" y="1505" width="30" height="20" class="vip-box" rx="2"/>
+  <text x="180" y="1520" class="text-small" style="text-anchor: start;">VIP/Virtual IP</text>
+
+  <rect x="400" y="1505" width="30" height="20" class="master-box" rx="2"/>
+  <text x="480" y="1520" class="text-small" style="text-anchor: start;">Node 1 (Master)</text>
+
+  <rect x="700" y="1505" width="30" height="20" class="backup-box" rx="2"/>
+  <text x="780" y="1520" class="text-small" style="text-anchor: start;">Node 2 (Backup)</text>
+
+  <rect x="1000" y="1505" width="30" height="20" class="minio-cluster" rx="2"/>
+  <text x="1080" y="1520" class="text-small" style="text-anchor: start;">MinIO Distributed Cluster</text>
 </svg>
