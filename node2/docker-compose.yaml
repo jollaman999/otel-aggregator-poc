@@ -158,7 +158,7 @@ services:
     network_mode: host
     volumes:
       - ./loki/config.yaml:/etc/loki/config.yaml:ro
-      - /data/otel/volume/loki:/loki
+      - /data/volume/otel/loki:/loki
     command: -config.file=/etc/loki/config.yaml
     depends_on:
       loki-init-volumes:
