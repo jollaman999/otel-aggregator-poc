@@ -1,0 +1,31 @@
+vrrp_script chk_haproxy {
+    script "/usr/bin/killall -0 haproxy"
+    interval 2
+    weight 2
+}
+
+vrrp_instance VI_1 {
+    interface INTERFACE_PLACEHOLDER
+    state ${KEEPALIVED_STATE}
+    virtual_router_id ${ROUTER_ID}
+    priority ${KEEPALIVED_PRIORITY}
+    advert_int 1
+    
+    authentication {
+        auth_type PASS
+        auth_pass monitoring_ha_2024
+    }
+    
+    unicast_src_ip ${NODE_IP}
+    unicast_peer {
+        ${PEER_IP}
+    }
+    
+    virtual_ipaddress {
+        ${VIP}
+    }
+    
+    track_script {
+        chk_haproxy
+    }
+}

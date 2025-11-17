@@ -1,0 +1,19 @@
+global:
+  scrape_interval: 5s
+  evaluation_interval: 15s
+  external_labels:
+    cluster: 'monitoring-ha'
+    replica: 'node2'
+
+scrape_configs:
+  - job_name: 'prometheus'
+    static_configs:
+      - targets: ['localhost:9090']
+
+  - job_name: 'otel-aggregator'
+    static_configs:
+      - targets: ['otel-aggregator:9464']
+  
+  - job_name: 'thanos-sidecar'
+    static_configs:
+      - targets: ['thanos-sidecar:10902']
