@@ -269,7 +269,7 @@
 
   <!-- Node 1: Prometheus to Local Thanos Receiver (straight down) -->
   <path d="M 150,740 L 150,780" class="line-purple" marker-end="url(#arrowhead-purple)"/>
-  <text x="170" y="760" class="label" fill="#7b1fa2">Remote Write</text>
+  <text x="70" y="760" class="label" fill="#7b1fa2">Remote Write</text>
 
   <!-- Node 1: Prometheus to Node 2 Thanos Receiver (cross-node remote write, very bottom) -->
   <path d="M 220,730 L 250,730 L 250,1010 L 1700,1010 L 1700,820 L 1780,820" class="line-purple" style="stroke-dasharray: 5,5" marker-end="url(#arrowhead-purple)"/>
@@ -341,7 +341,7 @@
 
   <!-- Node 2: Prometheus to Local Thanos Receiver (straight down) -->
   <path d="M 1850,740 L 1850,780" class="line-purple" marker-end="url(#arrowhead-purple)"/>
-  <text x="1790" y="760" class="label" fill="#7b1fa2">Remote Write</text>
+  <text x="1920" y="760" class="label" fill="#7b1fa2">Remote Write</text>
 
   <!-- Node 2: Prometheus to Node 1 Thanos Receiver (cross-node remote write, very bottom) -->
   <path d="M 1780,730 L 1750,730 L 1750,1030 L 300,1030 L 300,820 L 220,820" class="line-purple" style="stroke-dasharray: 5,5" marker-end="url(#arrowhead-purple)"/>
