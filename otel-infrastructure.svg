@@ -80,7 +80,7 @@
   <text x="475" y="395" class="text" style="font-weight: bold;">Node 1 - MASTER (192.168.110.214)</text>
 
   <!-- Node 1: HAProxy -->
-  <rect x="380" y="420" width="100" height="80" class="haproxy-box" rx="5"/>
+  <rect x="360" y="420" width="140" height="80" class="haproxy-box" rx="5"/>
   <text x="430" y="445" class="text" style="font-weight: bold;">HAProxy</text>
   <text x="430" y="465" class="text-small">Load Balancer</text>
   <text x="430" y="485" class="text-small">:4318/19193/9192/3100</text>
@@ -145,7 +145,7 @@
   <text x="1525" y="395" class="text" style="font-weight: bold;">Node 2 - BACKUP (192.168.110.119)</text>
 
   <!-- Node 2: HAProxy -->
-  <rect x="1520" y="420" width="100" height="80" class="haproxy-box" rx="5"/>
+  <rect x="1500" y="420" width="140" height="80" class="haproxy-box" rx="5"/>
   <text x="1570" y="445" class="text" style="font-weight: bold;">HAProxy</text>
   <text x="1570" y="465" class="text-small">Load Balancer</text>
   <text x="1570" y="485" class="text-small">:4318/19193/9192/3100</text>
