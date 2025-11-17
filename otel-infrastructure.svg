@@ -257,7 +257,7 @@
   <text x="700" y="455" class="label" fill="#7b1fa2">Query Frontend :19193</text>
 
   <!-- HAProxy to Thanos Query (via left side) -->
-  <path d="M 380,490 L 200,490 L 200,750 L 240,750 L 240,800" class="line-purple" style="stroke-dasharray: 3,3" marker-end="url(#arrowhead-purple)"/>
+  <path d="M 380,490 L 200,490 L 200,755 L 240,755 L 240,810" class="line-purple" style="stroke-dasharray: 3,3" marker-end="url(#arrowhead-purple)"/>
   <text x="210" y="620" class="label" fill="#7b1fa2">Query :9192</text>
 
   <!-- Node 1: OTel to Prometheus -->
@@ -272,11 +272,11 @@
   <text x="80" y="760" class="label" fill="#7b1fa2">Remote Write</text>
 
   <!-- Node 1: Prometheus to Node 2 Thanos Receiver (cross-node remote write, very bottom) -->
-  <path d="M 220,730 L 250,730 L 250,1010 L 1700,1010 L 1700,820 L 1780,820" class="line-purple" style="stroke-dasharray: 5,5" marker-end="url(#arrowhead-purple)"/>
+  <path d="M 220,730 L 250,730 L 250,1010 L 1700,1010 L 1700,840 L 1780,840" class="line-purple" style="stroke-dasharray: 5,5" marker-end="url(#arrowhead-purple)"/>
   <text x="975" y="1005" class="label" fill="#7b1fa2">Cross-node Remote Write</text>
 
   <!-- Node 1: Query Frontend to Query -->
-  <path d="M 720,820 L 450,820 L 450,835 L 380,835" class="line-purple" marker-end="url(#arrowhead-purple)"/>
+  <path d="M 720,820 L 380,820" class="line-purple" marker-end="url(#arrowhead-purple)"/>
 
   <!-- Node 1: Thanos Query to Sidecar -->
   <path d="M 310,780 L 310,740" class="line-purple" marker-end="url(#arrowhead-purple)"/>
@@ -329,7 +329,7 @@
   <text x="1250" y="455" class="label" fill="#7b1fa2">Query Frontend :19193</text>
 
   <!-- HAProxy to Thanos Query (via right side) -->
-  <path d="M 1620,490 L 1800,490 L 1800,750 L 1760,750 L 1760,800" class="line-purple" style="stroke-dasharray: 3,3" marker-end="url(#arrowhead-purple)"/>
+  <path d="M 1620,490 L 1800,490 L 1800,755 L 1760,755 L 1760,810" class="line-purple" style="stroke-dasharray: 3,3" marker-end="url(#arrowhead-purple)"/>
   <text x="1810" y="620" class="label" fill="#7b1fa2">Query :9192</text>
 
   <!-- Node 2: OTel to Prometheus -->
@@ -344,10 +344,10 @@
   <text x="1870" y="760" class="label" fill="#7b1fa2">Remote Write</text>
 
   <!-- Node 2: Prometheus to Node 1 Thanos Receiver (cross-node remote write, very bottom) -->
-  <path d="M 1780,730 L 1750,730 L 1750,1030 L 300,1030 L 300,820 L 220,820" class="line-purple" style="stroke-dasharray: 5,5" marker-end="url(#arrowhead-purple)"/>
+  <path d="M 1780,730 L 1750,730 L 1750,1030 L 300,1030 L 300,840 L 220,840" class="line-purple" style="stroke-dasharray: 5,5" marker-end="url(#arrowhead-purple)"/>
 
   <!-- Node 2: Query Frontend to Query -->
-  <path d="M 1280,820 L 1550,820 L 1550,835 L 1620,835" class="line-purple" marker-end="url(#arrowhead-purple)"/>
+  <path d="M 1280,820 L 1620,820" class="line-purple" marker-end="url(#arrowhead-purple)"/>
 
   <!-- Node 2: Thanos Query to Sidecar -->
   <path d="M 1690,780 L 1690,740" class="line-purple" marker-end="url(#arrowhead-purple)"/>
