@@ -50,6 +50,19 @@ backend thanos_query_backend
     server thanos-query-1 ${NODE_IP}:29193 check inter 2000 rise 2 fall 3
     server thanos-query-2 ${PEER_IP}:29193 check inter 2000 rise 2 fall 3
 
+frontend thanos_query_frontend_frontend
+    bind *:9192
+    mode http
+    default_backend thanos_query_frontend_backend
+
+backend thanos_query_frontend_backend
+    mode http
+    balance roundrobin
+    option httpchk GET /-/healthy
+    http-check expect status 200
+    server thanos-query-1 ${NODE_IP}:19192 check inter 2000 rise 2 fall 3
+    server thanos-query-2 ${PEER_IP}:19192 check inter 2000 rise 2 fall 3
+
 listen stats
     bind *:8404
     stats enable
