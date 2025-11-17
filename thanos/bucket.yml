@@ -1,7 +1,7 @@
 type: S3
 config:
   bucket: "thanos-metrics"
-  endpoint: "minio:9000"
+  endpoint: "127.0.0.1:9000"
   access_key: "YmQYMMfCAPenMclY1WR1"
   secret_key: "iXjthlJdpI0fKpz015yMgBKuNPBtSrIvDOED1a3P"
   insecure: true
