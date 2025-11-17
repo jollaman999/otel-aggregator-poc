@@ -245,19 +245,19 @@
 
   <!-- Node 1: HAProxy branching to services (완전히 분리된 경로) -->
   <!-- HAProxy to OTel (far left) -->
-  <path d="M 380,460 L 250,460 L 250,530 L 150,530 L 150,550" class="line-blue" marker-end="url(#arrowhead-blue)"/>
+  <path d="M 360,460 L 250,460 L 250,530 L 150,530 L 150,550" class="line-blue" marker-end="url(#arrowhead-blue)"/>
   <text x="195" y="455" class="label" fill="#1976d2">OTLP :4318</text>
 
   <!-- HAProxy to Loki (left center) -->
-  <path d="M 380,480 L 350,480 L 350,520 L 550,520 L 550,550" class="line-orange" marker-end="url(#arrowhead-orange)"/>
+  <path d="M 360,480 L 350,480 L 350,520 L 550,520 L 550,550" class="line-orange" marker-end="url(#arrowhead-orange)"/>
   <text x="460" y="515" class="label" fill="#f57c00">Loki :3100</text>
 
   <!-- HAProxy to Query Frontend (far right - 완전히 분리) -->
-  <path d="M 480,460 L 660,460 L 660,740 L 790,740 L 790,780" class="line-purple" marker-end="url(#arrowhead-purple)"/>
+  <path d="M 500,460 L 660,460 L 660,740 L 790,740 L 790,780" class="line-purple" marker-end="url(#arrowhead-purple)"/>
   <text x="700" y="455" class="label" fill="#7b1fa2">Query Frontend :19193</text>
 
   <!-- HAProxy to Thanos Query (via left side) -->
-  <path d="M 380,490 L 200,490 L 200,755 L 260,755 L 260,810" class="line-purple" style="stroke-dasharray: 3,3" marker-end="url(#arrowhead-purple)"/>
+  <path d="M 360,490 L 200,490 L 200,755 L 330,755 L 330,780" class="line-purple" style="stroke-dasharray: 3,3" marker-end="url(#arrowhead-purple)"/>
   <text x="210" y="620" class="label" fill="#7b1fa2">Query :9192</text>
 
   <!-- Node 1: OTel to Prometheus -->
@@ -317,19 +317,19 @@
 
   <!-- Node 2: HAProxy branching to services (완전히 분리된 경로) -->
   <!-- HAProxy to OTel (far right) -->
-  <path d="M 1620,460 L 1750,460 L 1750,530 L 1850,530 L 1850,550" class="line-blue" marker-end="url(#arrowhead-blue)"/>
+  <path d="M 1640,460 L 1750,460 L 1750,530 L 1850,530 L 1850,550" class="line-blue" marker-end="url(#arrowhead-blue)"/>
   <text x="1795" y="455" class="label" fill="#1976d2">OTLP :4318</text>
 
   <!-- HAProxy to Loki (right center) -->
-  <path d="M 1620,480 L 1650,480 L 1650,520 L 1450,520 L 1450,550" class="line-orange" marker-end="url(#arrowhead-orange)"/>
+  <path d="M 1640,480 L 1650,480 L 1650,520 L 1450,520 L 1450,550" class="line-orange" marker-end="url(#arrowhead-orange)"/>
   <text x="1540" y="515" class="label" fill="#f57c00">Loki :3100</text>
 
   <!-- HAProxy to Query Frontend (far left - 완전히 분리) -->
-  <path d="M 1520,460 L 1340,460 L 1340,740 L 1210,740 L 1210,780" class="line-purple" marker-end="url(#arrowhead-purple)"/>
+  <path d="M 1500,460 L 1340,460 L 1340,740 L 1210,740 L 1210,780" class="line-purple" marker-end="url(#arrowhead-purple)"/>
   <text x="1250" y="455" class="label" fill="#7b1fa2">Query Frontend :19193</text>
 
   <!-- HAProxy to Thanos Query (via right side) -->
-  <path d="M 1620,490 L 1800,490 L 1800,755 L 1740,755 L 1740,810" class="line-purple" style="stroke-dasharray: 3,3" marker-end="url(#arrowhead-purple)"/>
+  <path d="M 1640,490 L 1800,490 L 1800,755 L 1670,755 L 1670,780" class="line-purple" style="stroke-dasharray: 3,3" marker-end="url(#arrowhead-purple)"/>
   <text x="1810" y="620" class="label" fill="#7b1fa2">Query :9192</text>
 
   <!-- Node 2: OTel to Prometheus -->
