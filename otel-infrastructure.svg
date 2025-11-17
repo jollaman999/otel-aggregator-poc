@@ -256,9 +256,9 @@
   <path d="M 480,460 L 660,460 L 660,740 L 790,740 L 790,780" class="line-purple" marker-end="url(#arrowhead-purple)"/>
   <text x="700" y="455" class="label" fill="#7b1fa2">Query Frontend :19193</text>
 
-  <!-- HAProxy to Thanos Query (direct down to left) -->
-  <path d="M 380,480 L 310,480 L 310,780" class="line-purple" style="stroke-dasharray: 3,3" marker-end="url(#arrowhead-purple)"/>
-  <text x="320" y="630" class="label" fill="#7b1fa2">Query :9192</text>
+  <!-- HAProxy to Thanos Query (via left side) -->
+  <path d="M 380,490 L 200,490 L 200,750 L 240,750 L 240,780" class="line-purple" style="stroke-dasharray: 3,3" marker-end="url(#arrowhead-purple)"/>
+  <text x="210" y="620" class="label" fill="#7b1fa2">Query :9192</text>
 
   <!-- Node 1: OTel to Prometheus -->
   <path d="M 150,620 L 150,660" class="line-green" marker-end="url(#arrowhead-green)"/>
@@ -328,9 +328,9 @@
   <path d="M 1520,460 L 1340,460 L 1340,740 L 1210,740 L 1210,780" class="line-purple" marker-end="url(#arrowhead-purple)"/>
   <text x="1250" y="455" class="label" fill="#7b1fa2">Query Frontend :19193</text>
 
-  <!-- HAProxy to Thanos Query (direct down to right) -->
-  <path d="M 1620,480 L 1690,480 L 1690,780" class="line-purple" style="stroke-dasharray: 3,3" marker-end="url(#arrowhead-purple)"/>
-  <text x="1630" y="630" class="label" fill="#7b1fa2">Query :9192</text>
+  <!-- HAProxy to Thanos Query (via right side) -->
+  <path d="M 1620,490 L 1800,490 L 1800,750 L 1760,750 L 1760,780" class="line-purple" style="stroke-dasharray: 3,3" marker-end="url(#arrowhead-purple)"/>
+  <text x="1810" y="620" class="label" fill="#7b1fa2">Query :9192</text>
 
   <!-- Node 2: OTel to Prometheus -->
   <path d="M 1850,620 L 1850,660" class="line-green" marker-end="url(#arrowhead-green)"/>
