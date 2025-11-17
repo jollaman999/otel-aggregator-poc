@@ -2,7 +2,7 @@
 
 export RUN_PATH="/minio"
 
-/minio/bin/minio server ${MINIO_DISTRIBUTED_NODES} --console-address :9001
+/minio/bin/minio server ${MINIO_DISTRIBUTED_NODES} --console-address :9001 > /dev/null &
 
 LOKI_USER=lokiuser
 LOKI_USER_PASSWORD=lokipass
