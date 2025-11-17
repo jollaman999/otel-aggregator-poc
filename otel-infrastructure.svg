@@ -98,9 +98,9 @@
   <text x="150" y="725" class="text-small">Retention: 2h</text>
 
   <!-- Node 1: Thanos Sidecar -->
-  <rect x="240" y="660" width="140" height="80" class="master-box" rx="5"/>
-  <text x="310" y="685" class="text">Thanos Sidecar</text>
-  <text x="310" y="705" class="text-small">:10901/:10902</text>
+  <rect x="260" y="660" width="140" height="80" class="master-box" rx="5"/>
+  <text x="330" y="685" class="text">Thanos Sidecar</text>
+  <text x="330" y="705" class="text-small">:10901/:10902</text>
 
   <!-- Node 1: Thanos Receiver -->
   <rect x="80" y="780" width="140" height="80" class="master-box" rx="5"/>
@@ -109,9 +109,9 @@
   <text x="150" y="845" class="text-small">:10909</text>
 
   <!-- Node 1: Thanos Query -->
-  <rect x="240" y="780" width="140" height="80" class="master-box" rx="5"/>
-  <text x="310" y="805" class="text">Thanos Query</text>
-  <text x="310" y="825" class="text-small">:19192/:10904</text>
+  <rect x="260" y="780" width="140" height="80" class="master-box" rx="5"/>
+  <text x="330" y="805" class="text">Thanos Query</text>
+  <text x="330" y="825" class="text-small">:19192/:10904</text>
 
   <!-- Node 1: Query Frontend -->
   <rect x="720" y="780" width="140" height="80" class="master-box" rx="5"/>
@@ -119,14 +119,14 @@
   <text x="790" y="815" class="text-small">:29193</text>
 
   <!-- Node 1: Thanos Store -->
-  <rect x="80" y="900" width="140" height="60" class="master-box" rx="5"/>
-  <text x="150" y="925" class="text">Thanos Store</text>
-  <text x="150" y="945" class="text-small">:10905/:10906</text>
+  <rect x="60" y="900" width="140" height="60" class="master-box" rx="5"/>
+  <text x="130" y="925" class="text">Thanos Store</text>
+  <text x="130" y="945" class="text-small">:10905/:10906</text>
 
   <!-- Node 1: Compactor -->
-  <rect x="240" y="900" width="140" height="60" class="master-box" rx="5"/>
-  <text x="310" y="925" class="text">Compactor</text>
-  <text x="310" y="945" class="text-small">:10912</text>
+  <rect x="280" y="900" width="140" height="60" class="master-box" rx="5"/>
+  <text x="350" y="925" class="text">Compactor</text>
+  <text x="350" y="945" class="text-small">:10912</text>
 
   <!-- Node 1: Loki -->
   <rect x="480" y="550" width="140" height="70" class="master-box" rx="5"/>
@@ -163,9 +163,9 @@
   <text x="1850" y="725" class="text-small">Retention: 2h</text>
 
   <!-- Node 2: Thanos Sidecar -->
-  <rect x="1620" y="660" width="140" height="80" class="backup-box" rx="5"/>
-  <text x="1690" y="685" class="text">Thanos Sidecar</text>
-  <text x="1690" y="705" class="text-small">:10901/:10902</text>
+  <rect x="1600" y="660" width="140" height="80" class="backup-box" rx="5"/>
+  <text x="1670" y="685" class="text">Thanos Sidecar</text>
+  <text x="1670" y="705" class="text-small">:10901/:10902</text>
 
   <!-- Node 2: Thanos Receiver -->
   <rect x="1780" y="780" width="140" height="80" class="backup-box" rx="5"/>
@@ -174,9 +174,9 @@
   <text x="1850" y="845" class="text-small">:10909</text>
 
   <!-- Node 2: Thanos Query -->
-  <rect x="1620" y="780" width="140" height="80" class="backup-box" rx="5"/>
-  <text x="1690" y="805" class="text">Thanos Query</text>
-  <text x="1690" y="825" class="text-small">:19192/:10904</text>
+  <rect x="1600" y="780" width="140" height="80" class="backup-box" rx="5"/>
+  <text x="1670" y="805" class="text">Thanos Query</text>
+  <text x="1670" y="825" class="text-small">:19192/:10904</text>
 
   <!-- Node 2: Query Frontend -->
   <rect x="1140" y="780" width="140" height="80" class="backup-box" rx="5"/>
@@ -184,14 +184,14 @@
   <text x="1210" y="815" class="text-small">:29193</text>
 
   <!-- Node 2: Thanos Store -->
-  <rect x="1780" y="900" width="140" height="60" class="backup-box" rx="5"/>
-  <text x="1850" y="925" class="text">Thanos Store</text>
-  <text x="1850" y="945" class="text-small">:10905/:10906</text>
+  <rect x="1800" y="900" width="140" height="60" class="backup-box" rx="5"/>
+  <text x="1870" y="925" class="text">Thanos Store</text>
+  <text x="1870" y="945" class="text-small">:10905/:10906</text>
 
   <!-- Node 2: Compactor -->
-  <rect x="1620" y="900" width="140" height="60" class="backup-box" rx="5"/>
-  <text x="1690" y="925" class="text">Compactor</text>
-  <text x="1690" y="945" class="text-small">:10912</text>
+  <rect x="1580" y="900" width="140" height="60" class="backup-box" rx="5"/>
+  <text x="1650" y="925" class="text">Compactor</text>
+  <text x="1650" y="945" class="text-small">:10912</text>
 
   <!-- Node 2: Loki -->
   <rect x="1380" y="550" width="140" height="70" class="backup-box" rx="5"/>
@@ -257,7 +257,7 @@
   <text x="700" y="455" class="label" fill="#7b1fa2">Query Frontend :19193</text>
 
   <!-- HAProxy to Thanos Query (via left side) -->
-  <path d="M 380,490 L 200,490 L 200,755 L 240,755 L 240,810" class="line-purple" style="stroke-dasharray: 3,3" marker-end="url(#arrowhead-purple)"/>
+  <path d="M 380,490 L 200,490 L 200,755 L 260,755 L 260,810" class="line-purple" style="stroke-dasharray: 3,3" marker-end="url(#arrowhead-purple)"/>
   <text x="210" y="620" class="label" fill="#7b1fa2">Query :9192</text>
 
   <!-- Node 1: OTel to Prometheus -->
@@ -265,7 +265,7 @@
   <text x="170" y="640" class="label" fill="#388e3c">Metrics</text>
 
   <!-- Node 1: Prometheus to Thanos Sidecar -->
-  <path d="M 220,700 L 240,700" class="line-purple" marker-end="url(#arrowhead-purple)"/>
+  <path d="M 220,700 L 260,700" class="line-purple" marker-end="url(#arrowhead-purple)"/>
 
   <!-- Node 1: Prometheus to Local Thanos Receiver (straight down) -->
   <path d="M 150,740 L 150,780" class="line-purple" marker-end="url(#arrowhead-purple)"/>
@@ -276,32 +276,32 @@
   <text x="975" y="1005" class="label" fill="#7b1fa2">Cross-node Remote Write</text>
 
   <!-- Node 1: Query Frontend to Query -->
-  <path d="M 720,820 L 380,820" class="line-purple" marker-end="url(#arrowhead-purple)"/>
+  <path d="M 720,820 L 400,820" class="line-purple" marker-end="url(#arrowhead-purple)"/>
 
   <!-- Node 1: Thanos Query to Sidecar -->
-  <path d="M 310,780 L 310,740" class="line-purple" marker-end="url(#arrowhead-purple)"/>
+  <path d="M 330,780 L 330,740" class="line-purple" marker-end="url(#arrowhead-purple)"/>
 
   <!-- Node 1: Thanos Query to Receiver -->
-  <path d="M 240,820 L 220,820" class="line-purple" marker-end="url(#arrowhead-purple)"/>
+  <path d="M 260,820 L 220,820" class="line-purple" marker-end="url(#arrowhead-purple)"/>
 
   <!-- Node 1: Thanos Query to Store -->
-  <path d="M 280,860 L 200,900" class="line-purple" marker-end="url(#arrowhead-purple)"/>
+  <path d="M 290,860 L 170,900" class="line-purple" marker-end="url(#arrowhead-purple)"/>
 
   <!-- Node 1: Thanos Sidecar to MinIO (right side curve) -->
-  <path d="M 380,700 L 420,700 L 420,1020 L 800,1020 L 800,1040" class="line-purple" marker-end="url(#arrowhead-purple)"/>
+  <path d="M 400,700 L 420,700 L 420,1020 L 800,1020 L 800,1040" class="line-purple" marker-end="url(#arrowhead-purple)"/>
   <text x="430" y="860" class="label" fill="#7b1fa2">Upload Blocks</text>
 
   <!-- Node 1: Thanos Store to MinIO bucket -->
-  <path d="M 150,960 L 150,1180 L 830,1180 L 830,1240" class="line-purple" marker-end="url(#arrowhead-purple)"/>
-  <text x="170" y="1070" class="label" fill="#7b1fa2">Read Blocks</text>
+  <path d="M 130,960 L 130,1180 L 830,1180 L 830,1240" class="line-purple" marker-end="url(#arrowhead-purple)"/>
+  <text x="150" y="1070" class="label" fill="#7b1fa2">Read Blocks</text>
 
   <!-- Node 1: Thanos Receiver to MinIO bucket (far left) -->
   <path d="M 80,850 L 50,850 L 50,1150 L 780,1150 L 780,1240" class="line-purple" marker-end="url(#arrowhead-purple)"/>
   <text x="60" y="1000" class="label" fill="#7b1fa2">Upload Blocks</text>
 
   <!-- Node 1: Compactor to MinIO bucket -->
-  <path d="M 310,960 L 310,1200 L 870,1200 L 870,1240" class="line-purple" marker-end="url(#arrowhead-purple)"/>
-  <text x="320" y="1100" class="label" fill="#7b1fa2">Compact Blocks</text>
+  <path d="M 350,960 L 350,1200 L 870,1200 L 870,1240" class="line-purple" marker-end="url(#arrowhead-purple)"/>
+  <text x="360" y="1100" class="label" fill="#7b1fa2">Compact Blocks</text>
 
   <!-- Node 1: Loki to MinIO bucket -->
   <path d="M 550,620 L 550,990 L 920,990 L 920,1240" class="line-orange" marker-end="url(#arrowhead-orange)"/>
@@ -329,7 +329,7 @@
   <text x="1250" y="455" class="label" fill="#7b1fa2">Query Frontend :19193</text>
 
   <!-- HAProxy to Thanos Query (via right side) -->
-  <path d="M 1620,490 L 1800,490 L 1800,755 L 1760,755 L 1760,810" class="line-purple" style="stroke-dasharray: 3,3" marker-end="url(#arrowhead-purple)"/>
+  <path d="M 1620,490 L 1800,490 L 1800,755 L 1740,755 L 1740,810" class="line-purple" style="stroke-dasharray: 3,3" marker-end="url(#arrowhead-purple)"/>
   <text x="1810" y="620" class="label" fill="#7b1fa2">Query :9192</text>
 
   <!-- Node 2: OTel to Prometheus -->
@@ -337,7 +337,7 @@
   <text x="1870" y="640" class="label" fill="#388e3c">Metrics</text>
 
   <!-- Node 2: Prometheus to Thanos Sidecar -->
-  <path d="M 1780,700 L 1760,700" class="line-purple" marker-end="url(#arrowhead-purple)"/>
+  <path d="M 1780,700 L 1740,700" class="line-purple" marker-end="url(#arrowhead-purple)"/>
 
   <!-- Node 2: Prometheus to Local Thanos Receiver (straight down) -->
   <path d="M 1850,740 L 1850,780" class="line-purple" marker-end="url(#arrowhead-purple)"/>
@@ -347,32 +347,32 @@
   <path d="M 1780,730 L 1750,730 L 1750,1030 L 300,1030 L 300,840 L 220,840" class="line-purple" style="stroke-dasharray: 5,5" marker-end="url(#arrowhead-purple)"/>
 
   <!-- Node 2: Query Frontend to Query -->
-  <path d="M 1280,820 L 1620,820" class="line-purple" marker-end="url(#arrowhead-purple)"/>
+  <path d="M 1280,820 L 1600,820" class="line-purple" marker-end="url(#arrowhead-purple)"/>
 
   <!-- Node 2: Thanos Query to Sidecar -->
-  <path d="M 1690,780 L 1690,740" class="line-purple" marker-end="url(#arrowhead-purple)"/>
+  <path d="M 1670,780 L 1670,740" class="line-purple" marker-end="url(#arrowhead-purple)"/>
 
   <!-- Node 2: Thanos Query to Receiver -->
-  <path d="M 1760,820 L 1780,820" class="line-purple" marker-end="url(#arrowhead-purple)"/>
+  <path d="M 1740,820 L 1780,820" class="line-purple" marker-end="url(#arrowhead-purple)"/>
 
   <!-- Node 2: Thanos Query to Store -->
-  <path d="M 1720,860 L 1800,900" class="line-purple" marker-end="url(#arrowhead-purple)"/>
+  <path d="M 1710,860 L 1830,900" class="line-purple" marker-end="url(#arrowhead-purple)"/>
 
   <!-- Node 2: Thanos Sidecar to MinIO (left side curve) -->
-  <path d="M 1620,700 L 1580,700 L 1580,1020 L 1200,1020 L 1200,1040" class="line-purple" marker-end="url(#arrowhead-purple)"/>
+  <path d="M 1600,700 L 1580,700 L 1580,1020 L 1200,1020 L 1200,1040" class="line-purple" marker-end="url(#arrowhead-purple)"/>
   <text x="1490" y="860" class="label" fill="#7b1fa2">Upload Blocks</text>
 
   <!-- Node 2: Thanos Store to MinIO bucket -->
-  <path d="M 1850,960 L 1850,1180 L 1170,1180 L 1170,1240" class="line-purple" marker-end="url(#arrowhead-purple)"/>
-  <text x="1790" y="1070" class="label" fill="#7b1fa2">Read Blocks</text>
+  <path d="M 1870,960 L 1870,1180 L 1170,1180 L 1170,1240" class="line-purple" marker-end="url(#arrowhead-purple)"/>
+  <text x="1810" y="1070" class="label" fill="#7b1fa2">Read Blocks</text>
 
   <!-- Node 2: Thanos Receiver to MinIO bucket (far right) -->
   <path d="M 1920,850 L 1950,850 L 1950,1150 L 1220,1150 L 1220,1240" class="line-purple" marker-end="url(#arrowhead-purple)"/>
   <text x="1920" y="1000" class="label" fill="#7b1fa2">Upload Blocks</text>
 
   <!-- Node 2: Compactor to MinIO bucket -->
-  <path d="M 1690,960 L 1690,1200 L 1130,1200 L 1130,1240" class="line-purple" marker-end="url(#arrowhead-purple)"/>
-  <text x="1630" y="1100" class="label" fill="#7b1fa2">Compact Blocks</text>
+  <path d="M 1650,960 L 1650,1200 L 1130,1200 L 1130,1240" class="line-purple" marker-end="url(#arrowhead-purple)"/>
+  <text x="1590" y="1100" class="label" fill="#7b1fa2">Compact Blocks</text>
 
   <!-- Node 2: Loki to MinIO bucket -->
   <path d="M 1450,620 L 1450,990 L 1080,990 L 1080,1240" class="line-orange" marker-end="url(#arrowhead-orange)"/>
