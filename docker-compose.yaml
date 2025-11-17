@@ -100,10 +100,10 @@ services:
       prometheus-init-volumes:
         condition: service_completed_successfully
     volumes:
-      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml:ro
       - /data/volume/otel/prometheus:/prometheus
     command:
       - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--web.listen-address=0.0.0.0:19090'
       - '--storage.tsdb.path=/prometheus'
       - '--storage.tsdb.retention.time=15d'
       - '--storage.tsdb.min-block-duration=2h'
@@ -112,9 +112,11 @@ services:
       - '--web.enable-admin-api'
     environment:
       - NODE_NAME=${NODE_NAME}
+      - NODE_IP=${NODE_IP}
+      - PEER_IP=${PEER_IP}
     healthcheck:
       start_period: 120s
-      test: ["CMD", "wget", "--spider", "-q", "http://127.0.0.1:9090/-/healthy"]
+      test: ["CMD", "wget", "--spider", "-q", "http://127.0.0.1:19090/-/healthy"]
       interval: 10s
       timeout: 10s
       retries: 30
@@ -171,27 +173,42 @@ services:
     volumes:
       - ./thanos/bucket.yml:/etc/thanos/bucket.yml:ro
       - ./thanos/hashrings.json.template:/etc/thanos/hashrings.json.template:ro
-      - /data/volume/otel/thanos-receiver:/data
+      - /data/volume/otel/thanos-receiver:/thanos-receiver
     command:
       - 'receive'
       - '--grpc-address=0.0.0.0:10907'
       - '--http-address=0.0.0.0:10909'
       - '--remote-write.address=0.0.0.0:19291'
-      - '--tsdb.path=/data'
+      - '--tsdb.path=/thanos-receiver'
       - '--objstore.config-file=/etc/thanos/bucket.yml'
       - '--label=receive_replica="${NODE_NAME}"'
       - '--label=replica="${NODE_NAME}"'
       - '--tsdb.retention=2h'
       - '--receive.replication-factor=1'
+      - '--receive.local-endpoint=${NODE_IP}:10907'
       - '--receive.hashrings-file=/etc/thanos/hashrings.json'
     environment:
       - NODE_IP=${NODE_IP}
       - PEER_IP=${PEER_IP}
+    depends_on:
+      thanos-receiver-init-volumes:
+        condition: service_completed_successfully
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:10909/-/healthy"]
+      test: ["CMD", "wget", "--spider", "-q", "http://127.0.0.1:10909/-/healthy"]
       interval: 30s
       timeout: 10s
       retries: 3
+
+  thanos-receiver-init-volumes:
+    image: busybox:stable
+    container_name: thanos-receiver-init-volumes
+    restart: no
+    network_mode: host
+    command: [ "sh", "-c", "chown -R 1001:1001 /thanos-receiver" ]
+    volumes:
+      - /data/volume/otel/thanos-receiver:/thanos-receiver
+    user: root
+    init: true
 
   loki:
     image: grafana/loki:3.4.2
@@ -209,18 +226,18 @@ services:
         condition: service_healthy
     healthcheck:
       start_period: 120s
-      test: 'wget --quiet --spider http://127.0.0.1:3100/metrics || exit 1'
+      test: 'wget --quiet --spider http://127.0.0.1:13100/metrics || exit 1'
       interval: 10s
       timeout: 10s
       retries: 30
 
   loki-init-volumes:
     image: busybox:stable
-    container_name: mc-observability-loki-init-volumes
+    container_name: loki-init-volumes
     restart: no
     network_mode: host
     command: [ "sh", "-c", "chown -R 10001:10001 /loki" ]
     volumes:
-      - /data/otel/volume/loki:/loki
+      - /data/volume/otel/loki:/loki
     user: root
     init: true

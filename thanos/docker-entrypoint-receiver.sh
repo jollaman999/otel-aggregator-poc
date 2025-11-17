@@ -7,4 +7,4 @@ envsubst '${NODE_IP} ${PEER_IP}' < /etc/thanos/hashrings.json.template > /etc/th
 echo "Generated hashrings.json:"
 cat /etc/thanos/hashrings.json
 
-exec "$@"
+exec /bin/thanos "$@"

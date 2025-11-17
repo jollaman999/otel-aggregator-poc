@@ -25,7 +25,7 @@ processors:
 
 exporters:
   prometheusremotewrite:
-    endpoint: http://localhost:9090/api/v1/write
+    endpoint: http://127.0.0.1:9090/api/v1/write
     tls:
       insecure: true
     resource_to_telemetry_conversion:
@@ -38,7 +38,7 @@ exporters:
       aggregator: ${NODE_NAME}
   
   otlphttp/loki:
-    endpoint: http://localhost:3100/otlp
+    endpoint: http://127.0.0.1:3100/otlp
     tls:
       insecure: true
 

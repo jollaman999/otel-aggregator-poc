@@ -58,7 +58,7 @@ Both nodes run identical service stacks:
   - External labels: cluster='monitoring-ha', replica='node1'
 - **Storage**: `/data/volume/otel/prometheus`
 - **Scrape targets**:
-  - prometheus (self): localhost:9090
+  - prometheus (self): 127.0.0.1:9090
   - otel-aggregator: otel-aggregator:9464
   - thanos-sidecar: thanos-sidecar:10902
 
